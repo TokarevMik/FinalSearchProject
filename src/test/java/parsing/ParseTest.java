@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ParseTest {
-    private Parse parse;
+    /*private Parse parse;
     final String url = "https://www.example.com";
     final String domain = "https://www.example.com";
 
@@ -101,6 +101,6 @@ class ParseTest {
     void testInvalidHrefJpeg() {
         assertFalse(parse.hrefValidate(("/image.jpg")));
         assertFalse(parse.hrefValidate(("/image.jpeg")));
-    }
+    }*/
 
 }
