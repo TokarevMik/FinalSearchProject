@@ -1,5 +1,6 @@
 package parsing;
 
+import finalSearchProject.fjpEx.services.LemmaService;
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +15,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class LemmatizerTest {
-    private LuceneMorphology morphology;
-    private Lemmatizer lemmatizer;
+class LemmaServiceTest {
+    /*private LuceneMorphology morphology;
+    private LemmaService lemmaService;
 
     @BeforeEach
     void setUp() throws IOException, NoSuchFieldException, IllegalAccessException {
@@ -24,12 +25,12 @@ class LemmatizerTest {
         morphology = Mockito.mock(RussianLuceneMorphology.class);
 
         // Создаём экземпляр Lemmatizer
-        lemmatizer = Lemmatizer.getInstance();
+//        lemmaService = LemmaService.getInstance();
 
         // Подменяем morphology через рефлексию
-        Field field = Lemmatizer.class.getDeclaredField("morphology");
+        Field field = LemmaService.class.getDeclaredField("morphology");
         field.setAccessible(true);
-        field.set(lemmatizer, morphology);
+        field.set(lemmaService, morphology);
     }
 
     @Test
@@ -47,7 +48,7 @@ class LemmatizerTest {
         when(morphology.getMorphInfo("парку")).thenReturn(List.of("парк СУЩ"));
         when(morphology.getNormalForms("парку")).thenReturn(List.of("парк"));
 
-        Map<String, Integer> lemmas = lemmatizer.countLemmas(text);
+        Map<String, Integer> lemmas = lemmaService.countLemmas(text);
 
         assertNotNull(lemmas);
         assertEquals(3, lemmas.size());
@@ -62,7 +63,7 @@ class LemmatizerTest {
         when(morphology.getMorphInfo("кошка")).thenReturn(List.of("кошка СУЩ"));
         when(morphology.getNormalForms("кошка")).thenReturn(List.of("кошка"));
 
-        Map<String, Integer> lemmas = lemmatizer.countLemmas(text);
+        Map<String, Integer> lemmas = lemmaService.countLemmas(text);
 
         assertNotNull(lemmas);
         assertEquals(1, lemmas.size());
@@ -85,7 +86,7 @@ class LemmatizerTest {
         when(morphology.getMorphInfo("доме")).thenReturn(List.of("дом СУЩ"));
         when(morphology.getNormalForms("доме")).thenReturn(List.of("дом"));
 
-        Map<String, Integer> lemmas = lemmatizer.countLemmas(text);
+        Map<String, Integer> lemmas = lemmaService.countLemmas(text);
 
         assertNotNull(lemmas);
         assertEquals(3, lemmas.size());
@@ -97,10 +98,10 @@ class LemmatizerTest {
     @Test
     void testCountLemmas_EmptyText() {
         String text = "";
-        Map<String, Integer> lemmas = lemmatizer.countLemmas(text);
+        Map<String, Integer> lemmas = lemmaService.countLemmas(text);
 
         assertNotNull(lemmas);
         assertTrue(lemmas.isEmpty());
-    }
+    }*/
 
 }

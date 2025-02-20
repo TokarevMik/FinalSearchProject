@@ -1,6 +1,7 @@
-package parsing;
+package finalSearchProject.fjpEx.parsing;
 
-import java.io.File;
+import finalSearchProject.fjpEx.model.Page;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class Repomock {
 
     public synchronized void writeToFile(Page page) throws IOException {
         fileWriterB.write(page.getContent() + "\n");
-        fileWriterB.write("+++++++++++++" + "\n");
+        fileWriterB.write(page.getPath() + "\n");
         fileWriterB.flush(); // Сброс буфера для записи в файл сразу
         fileWriterH.write(page.getPath() + "*************" + "\n");
         page.getCountLemmas().forEach((k,v)-> {

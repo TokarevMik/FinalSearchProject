@@ -1,27 +1,23 @@
-package parsing;
+package finalSearchProject.fjpEx.services;
 
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
-
-public class Lemmatizer {
+@Service
+public class LemmaService implements LemmaServiceInterface {
     //    String content;
     private final LuceneMorphology morphology;
     private static final String[] particlesNames = new String[]{"МЕЖД", "ПРЕДЛ", "СОЮЗ"};
 
-    public static Lemmatizer getInstance() throws IOException {
-        LuceneMorphology morphology = new RussianLuceneMorphology();
-        return new Lemmatizer(morphology);
-    }
-
-    private Lemmatizer(LuceneMorphology morphology) {
+    private LemmaService(LuceneMorphology morphology) {
         this.morphology = morphology;
     }
 
-    private Lemmatizer() {
-        throw new RuntimeException("Disallow construct");
+    public LemmaService()  throws IOException {
+        this(new RussianLuceneMorphology());
     }
 
 
