@@ -3,6 +3,7 @@ package finalSearchProject.fjpEx.parsing;
 import java.util.concurrent.ForkJoinPool;
 
 public class ThreadParser implements Runnable {
+
     WebPageParser webPageParser;
 
     public ThreadParser(WebPageParser webPageParser) {
@@ -11,8 +12,8 @@ public class ThreadParser implements Runnable {
 
     @Override
     public void run() {
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
-        forkJoinPool.invoke(webPageParser);
+        ForkJoinPool fjp = new ForkJoinPool();
+        fjp.invoke(webPageParser);
     }
 }
 

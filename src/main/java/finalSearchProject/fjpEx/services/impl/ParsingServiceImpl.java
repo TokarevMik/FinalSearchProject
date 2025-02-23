@@ -10,34 +10,36 @@ import finalSearchProject.fjpEx.services.LemmaServiceInterface;
 import finalSearchProject.fjpEx.services.ParsingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.context.ApplicationContext;
+
+import java.io.IOException;
+import java.util.*;
 
 
 @Service
 @RequiredArgsConstructor
 public class ParsingServiceImpl implements ParsingService {
     private final LemmaServiceInterface lemmaService;
-    private final ApplicationContext applicationContext;
     private final SitesList sites;
 //    private final SiteRepo siteRepo;
 //    private final PageRepo pageRepo;
 //    private final SitesList sites;
 
     @Override
-    public void startParsing() {
+    public void startParsing() throws IOException, InterruptedException {
+        Map<String, Thread> parsingThreads = new HashMap<>();
         for (Site site : sites.getSites()) {
             UrlConnector urlConnector = new UrlConnectorImpl(site.getUrl());
             if (urlConnector.codeResponse() == 200) {
-                WebPageParser webPageParser = applicationContext.getBean(
-                        WebPageParser.class,
-                        lemmaService,
-                        applicationContext,
-                        site.getUrl(), site.getUrl());
-                new Thread(new ThreadParser(webPageParser)).start();
+                new Thread(new ThreadParser(new WebPageParser(site.getUrl(), site.getUrl()))).start();
             } else {
                 System.out.printf("Адрес %s не отвечает %n", site.getUrl());
             }
         }
         System.out.println("Парсинг запущен в отдельных потоках...");
-    } //end startParsing
+        for (Map.Entry<String, Thread> entry : parsingThreads.entrySet()) {
+            entry.getValue().join();
+            System.out.printf("Парсинг %s завершено", entry.getKey());
+        }
+    }
+    //end startParsing
 }

@@ -1,11 +1,9 @@
-package lemma;
+package finalSearchProject.fjpEx.lemma;
 
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
-import parsing.Lemmatizer;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class Main {
     private static final String[] EXTENSIONS_LIST = {"redirect", "php", "js",

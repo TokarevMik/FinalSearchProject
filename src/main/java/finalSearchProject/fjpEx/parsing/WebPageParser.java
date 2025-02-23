@@ -1,17 +1,14 @@
 package finalSearchProject.fjpEx.parsing;
 
-//import finalSearchProject.fjpEx.services.LemmaService;
-
 import finalSearchProject.fjpEx.model.Page;
+import finalSearchProject.fjpEx.services.LemmaService;
 import finalSearchProject.fjpEx.services.LemmaServiceInterface;
+import lombok.Getter;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired; // Импорт аннотации @Autowired
 
 import java.io.*;
 import java.util.HashSet;
@@ -22,20 +19,17 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 
-@Component
+@Getter
 public class WebPageParser extends RecursiveAction {
-    String url = "";
+//public class WebPageParser extends RecursiveTask<Integer> {
+    String url;
     String domain;
     String content;
 
     private final transient Repomock repomock;
-    private final LemmaServiceInterface lemmaService;
-    private final ApplicationContext applicationContext;
+    private final LemmaServiceInterface lemmaService = new LemmaService();
 
-    @Autowired
-    public WebPageParser(LemmaServiceInterface lemmaService, ApplicationContext applicationContext, String url, String domain) throws IOException {
-        this.lemmaService = lemmaService;
-        this.applicationContext = applicationContext;
+    public WebPageParser(String url, String domain ) throws IOException {
         this.url = url;
         this.domain = domain;
         repomock = Repomock.getInstance();
@@ -48,8 +42,14 @@ public class WebPageParser extends RecursiveAction {
             ".php", "mailto:", "resolve?", "xml", "callto", "tel:", "t.me", "?", "bmp"};
 
     Set<String> setUrls = new HashSet<>();
+    public void setUrlAndDomain(String url, String domain) {
+        this.url = url;
+        this.domain = domain;
+    }
 
     protected void compute() {
+        Integer counter = 1;
+        Set<WebPageParser> taskList = new CopyOnWriteArraySet<>(); // список тасков
         try {
             Connection.Response response = new UrlConnectorImpl(url).getResponse();
             int statusCode = response.statusCode();
@@ -78,11 +78,11 @@ public class WebPageParser extends RecursiveAction {
                 page.setCountLemmas(countLemmas);
                 repomock.writeToFile(page);
 
-                Set<WebPageParser> taskList = new CopyOnWriteArraySet<>(); // список тасков
+
                 for (String url : setUrls) {
                     if (!isAlreadyRead.contains(url)) {
                         isAlreadyRead.add(url);
-                        WebPageParser webPageParserTask = applicationContext.getBean(WebPageParser.class, lemmaService, url, domain);
+                        WebPageParser webPageParserTask = new WebPageParser(url, domain);
                         webPageParserTask.fork();
                         try {
                             Thread.sleep(300);
@@ -104,7 +104,10 @@ public class WebPageParser extends RecursiveAction {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+//        for(WebPageParser webPageParser:taskList){
+//            counter+=webPageParser.join();
+//        }
+//        return counter;
     }//end of compute
 
 

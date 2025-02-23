@@ -26,7 +26,7 @@ public class Repomock {
     }
 
     public synchronized void writeToFile(Page page) throws IOException {
-        fileWriterB.write(page.getContent() + "\n");
+//        fileWriterB.write(page.getContent() + "\n");
         fileWriterB.write(page.getPath() + "\n");
         fileWriterB.flush(); // Сброс буфера для записи в файл сразу
         fileWriterH.write(page.getPath() + "*************" + "\n");

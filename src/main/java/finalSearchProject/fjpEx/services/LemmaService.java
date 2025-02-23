@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+
 @Service
 public class LemmaService implements LemmaServiceInterface {
     //    String content;
@@ -16,15 +17,14 @@ public class LemmaService implements LemmaServiceInterface {
         this.morphology = morphology;
     }
 
-    public LemmaService()  throws IOException {
+    public LemmaService() throws IOException {
         this(new RussianLuceneMorphology());
     }
-
 
     public Map<String, Integer> countLemmas(String content) {
         String[] allWords = getArrayOfWords(content);
         Map<String, Integer> lemmas = new HashMap<>();
-        for (String word : allWords) {
+        /*for (String word : allWords) {
             if (word.isBlank()) {
                 continue;
             }
@@ -42,7 +42,7 @@ public class LemmaService implements LemmaServiceInterface {
             } else {
                 lemmas.put(normalWord, 1);
             }
-        }
+        }*/
         return lemmas;
     }
 
