@@ -1,7 +1,7 @@
 package finalSearchProject.fjpEx.parsing;
 
 import finalSearchProject.fjpEx.model.Page;
-import finalSearchProject.fjpEx.services.LemmaService;
+import finalSearchProject.fjpEx.services.impl.LemmaService;
 import finalSearchProject.fjpEx.services.LemmaServiceInterface;
 import lombok.Getter;
 import org.jsoup.Connection;
@@ -55,7 +55,17 @@ public class WebPageParser extends RecursiveAction {
             int statusCode = response.statusCode();
             if (statusCode < 400) {
                 Document document = response.parse();
+                content = document.body().text();
+                Map<String, Integer> countLemmas = lemmaService.countLemmas(content);
+//                Page page = new Page(content, url, domain, countLemmas);
+                Page page = new Page();
+                page.setContent(content);
+                page.setPath(url);
+                page.setDomain(domain);
+                page.setCountLemmas(countLemmas);
+                repomock.writeToFile(page);
                 Elements elements = document.body().getElementsByTag("a");
+
                 for (Element element : elements) {
                     String href = element.attr("href");
                     if (!hrefValidate(href)) {
@@ -68,16 +78,6 @@ public class WebPageParser extends RecursiveAction {
                         setUrls.add(href);
                     }
                 }
-                content = document.body().text();
-                Map<String, Integer> countLemmas = lemmaService.countLemmas(content);
-//                Page page = new Page(content, url, domain, countLemmas);
-                Page page = new Page();
-                page.setContent(content);
-                page.setPath(url);
-                page.setDomain(domain);
-                page.setCountLemmas(countLemmas);
-                repomock.writeToFile(page);
-
 
                 for (String url : setUrls) {
                     if (!isAlreadyRead.contains(url)) {

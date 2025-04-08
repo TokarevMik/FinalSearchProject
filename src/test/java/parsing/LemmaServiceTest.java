@@ -1,20 +1,5 @@
 package parsing;
 
-import finalSearchProject.fjpEx.services.LemmaService;
-import org.apache.lucene.morphology.LuceneMorphology;
-import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 class LemmaServiceTest {
     /*private LuceneMorphology morphology;
     private LemmaService lemmaService;

@@ -1,5 +1,6 @@
-package finalSearchProject.fjpEx.services;
+package finalSearchProject.fjpEx.services.impl;
 
+import finalSearchProject.fjpEx.services.LemmaServiceInterface;
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
 import org.springframework.stereotype.Service;

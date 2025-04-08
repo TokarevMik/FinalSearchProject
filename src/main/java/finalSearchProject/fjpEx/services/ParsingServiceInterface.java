@@ -2,7 +2,7 @@ package finalSearchProject.fjpEx.services;
 
 import java.io.IOException;
 
-public interface ParsingService {
+public interface ParsingServiceInterface {
     void startParsing() throws IOException, InterruptedException;
 
 }

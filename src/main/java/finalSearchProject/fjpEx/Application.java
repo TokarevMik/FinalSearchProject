@@ -1,5 +1,5 @@
 package finalSearchProject.fjpEx;
-import finalSearchProject.fjpEx.services.ParsingService;
+import finalSearchProject.fjpEx.services.ParsingServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,18 +18,18 @@ public class Application {
 @Component
 class AppRunner implements CommandLineRunner {
 
-    private final ParsingService parsingService;
+    private final ParsingServiceInterface parsingServiceInterface;
 
     @Autowired
-    public AppRunner(ParsingService parsingService) {
-        this.parsingService = parsingService;
+    public AppRunner(ParsingServiceInterface parsingServiceInterface) {
+        this.parsingServiceInterface = parsingServiceInterface;
     }
 
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Приложение запущено. Инициализируем парсинг из AppRunner...");
         try {
-            parsingService.startParsing(); // Запускаем парсинг через ParsingService
+            parsingServiceInterface.startParsing(); // Запускаем парсинг через ParsingService
         } catch (IOException e) {
             System.err.println("Ошибка при запуске парсинга: " + e.getMessage());
             e.printStackTrace(); // Важно обработать IOException

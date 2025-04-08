@@ -1,9 +1,10 @@
 package finalSearchProject.fjpEx.example;
 
+/*
 //@RequiredArgsConstructor
 //@Slf4j
-/*
-public class UrlParser extends RecursiveAction {
+*/
+/*public class UrlParser extends RecursiveAction {
     private final Integer siteId;
     private final String path;
     private final transient SiteRepository siteRepository;
@@ -17,7 +18,7 @@ public class UrlParser extends RecursiveAction {
         if (isNotFailed(siteId) && isNotVisited(siteId, path)) {
             try {
                 updateStatusTime(siteId);
-                Optional<Page> optionalPage = savePage(siteId, path);
+                Optional<Page> optionalPage = savePage(siteId, path);  //
 
                 if (optionalPage.isPresent()) {
                     Page page = optionalPage.get();
@@ -78,7 +79,7 @@ public class UrlParser extends RecursiveAction {
     }
 
 
-    private void updateStatusTime(Integer siteId) {
+    private void updateStatusTime(Integer siteId) { //обновление даты проверки
         Site persistSite = getPersistSite(siteId);
         persistSite.setStatusTime(LocalDateTime.now());
         siteRepository.save(persistSite);
@@ -92,11 +93,14 @@ public class UrlParser extends RecursiveAction {
     }
 
     private Site getPersistSite(Integer siteId) {
-        return siteRepository.findById(siteId).orElseThrow(() -> new IllegalStateException("Site not found"));
+        return siteRepository.findById(siteId)
+                .orElseThrow(() -> new IllegalStateException("Site not found"));
     }
 
     private boolean isNotFailed(Integer siteId) {
         return !siteRepository.existsByIdAndStatus(siteId, SiteStatus.FAILED);
     }
+
 }
 */
+

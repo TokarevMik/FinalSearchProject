@@ -7,7 +7,7 @@ import finalSearchProject.fjpEx.parsing.UrlConnector;
 import finalSearchProject.fjpEx.parsing.UrlConnectorImpl;
 import finalSearchProject.fjpEx.parsing.WebPageParser;
 import finalSearchProject.fjpEx.services.LemmaServiceInterface;
-import finalSearchProject.fjpEx.services.ParsingService;
+import finalSearchProject.fjpEx.services.ParsingServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,9 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class ParsingServiceImpl implements ParsingService {
+public class ParsingService implements ParsingServiceInterface {
     private final LemmaServiceInterface lemmaService;
     private final SitesList sites;
-//    private final SiteRepo siteRepo;
-//    private final PageRepo pageRepo;
-//    private final SitesList sites;
 
     @Override
     public void startParsing() throws IOException, InterruptedException {
